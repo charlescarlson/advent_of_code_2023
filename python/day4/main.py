@@ -15,12 +15,10 @@ def completely_contains(range_1: typ.List[int], range_2: typ.List[int]) -> bool:
     range_2_start: int = range_2[0]
     range_2_end: int = range_2[-1]
 
-    if (range_1_start >= range_2_start) and (range_1_end <= range_2_end):
-        return True
-    elif (range_2_start >= range_1_start) and (range_2_end <= range_1_end):
-        return True
-    else:
-        return False
+    return (
+        (range_1_start >= range_2_start) and (range_1_end <= range_2_end) 
+        or (range_2_start >= range_1_start) and (range_2_end <= range_1_end)
+    )
     
 
 def overlaps(range_1: typ.List[int], range_2: typ.List[int]) -> bool:
@@ -30,12 +28,10 @@ def overlaps(range_1: typ.List[int], range_2: typ.List[int]) -> bool:
     range_2_start: int = range_2[0]
     range_2_end: int = range_2[-1]
 
-    if (range_1_end < range_2_start):
-        return False
-    elif (range_2_end < range_1_start):
-        return False
-    else:
-        return True
+    return not (
+        (range_1_end < range_2_start) 
+        or (range_2_end < range_1_start)
+    )
 
 
 def do_draw(range_1: typ.List[int], range_2: typ.List[int]) -> None:
