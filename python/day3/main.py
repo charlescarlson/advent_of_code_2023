@@ -1,15 +1,5 @@
 import typing as typ
 
-def get_intersection(arr: typ.List[str]) -> str:
-    halfway = int(len(arr) / 2)
-    arr1 = arr[:halfway]
-    arr2 = arr[halfway:]
-
-    # O((n/2)**2)
-    for elem in arr1:
-        if elem in arr2:
-            return elem
-
 
 def build_priority_score_maping():
 
@@ -35,15 +25,39 @@ def get_priority_score(intersection: str) -> int:
     return priority_score_mappings[intersection]
 
 
-def main() -> int:
+def part_1() -> int:
     with open("python/day3/data.txt", 'r', encoding="UTF-8") as f:
         total = 0
-        for line in f.readlines():
-            intersection = get_intersection(line.strip("\n"))
-            total += get_priority_score(intersection)
+        lines = [line.strip("\n") for line in f.readlines()]
+        for line in lines:
+            halfway = int(len(line) / 2)
+            arr1 = set(line[:halfway])
+            arr2 = set(line[halfway:])
+
+            intersection = arr1.intersection(arr2)
+            total += get_priority_score(intersection.pop())
+    return total
+
+
+def part_2():
+    with open("python/day3/data.txt", 'r', encoding="UTF-8") as f:
+        total = 0
+        lines = [line.strip("\n") for line in f.readlines()]
+        
+        while len(lines) > 0:
+            elf_1: typ.Set[str] = set(lines.pop())
+            elf_2: typ.Set[str] = set(lines.pop())
+            elf_3: typ.Set[str] = set(lines.pop())
+
+            intersection_1_2 = elf_1.intersection(elf_2)
+            intersection_1_2__3 = intersection_1_2.intersection(elf_3)
+
+            total += get_priority_score(intersection_1_2__3.pop())
     return total
         
 
 if __name__ == "__main__":
-    result = main()
-    print(f"Result: {result}")
+    result_1 = part_1()
+    result_2 = part_2()
+    print(f"Result 1: {result_1}")
+    print(f"Result 2: {result_2}")
