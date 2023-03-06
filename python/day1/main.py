@@ -1,5 +1,6 @@
 import typing as typ
 
+
 def get_elf_totals() -> typ.List[int]:
     with open("python/day1/data.txt") as f:
         lines: typ.List[str] = list(f.readlines())
@@ -13,9 +14,11 @@ def get_elf_totals() -> typ.List[int]:
                 current_total += int(line.strip("\n"))
     return sorted(totals)
 
+
 def part_1() -> int:
     totals: typ.List[int] = get_elf_totals()
     return totals[-1]
+
 
 def part_2() -> int:
     totals = get_elf_totals()
